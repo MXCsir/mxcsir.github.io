@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>正在进行跳转 - 检测线路</title>
+  <title>xxx网站前置页 - 检测线路</title>
   <link rel="stylesheet" href="./reset.min.css" />
   <style>
     body {
@@ -188,10 +188,18 @@
 
     function checkDomain(hosts) {
       for (var i = 0; i < hosts.length; i++) {
-        const currentUrl = hosts[i];
-        fetch(currentUrl).then((res) => {
+        let checkUrl;
+        let jumpUrl;
+        if (typeof hosts[i] === 'object' && hosts[i] !== null) {
+          checkUrl = hosts[i].checkUrl;
+          jumpUrl =  hosts[i].jumpUrl;
+        } else {
+          checkUrl = hosts[i];
+          jumpUrl = hosts[i];
+        }
+        fetch(checkUrl).then((res) => {
           if (res.ok && res.status === 200) {
-            window.location.href = joinUrlAndPath(currentUrl, path) + location.search;
+            window.location.href = joinUrlAndPath(jumpUrl, path) + location.search;
           }
         });
       }
